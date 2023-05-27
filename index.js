@@ -50,7 +50,7 @@ function sendReminder(bot) {
   const schedule = require('node-schedule');
 
 
-    const targetDate = new Date(2023, 4, 27, 18, 17, 0);
+    const targetDate = new Date(2023, 4, 27, 18, 19, 0);
         const job = schedule.scheduleJob(targetDate, function() {
         sendReminder(bot);
         });
