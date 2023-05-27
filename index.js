@@ -33,20 +33,16 @@ function sendReminder(bot) {
       if (err) {
         console.error(err);
       } else {
-        let messageFirst = `Привет, я бот с напоминанием о прямой трансляции! Я отправлю тебе напоминание за час до начала`
+        let messageFirst = `Привет, я бот с напоминанием о прямой трансляции! Я отправлю тебе напоминание за час до начала. А пока можете подписаться на наши социальные сети`;
+        bot.sendMessage(chatId, messageFirst);
         let vk = `https://vk.com/dom.znaniy`
         let instagram = `https://instagram.com/d.znaniy?igshid=MzRlODBiNWFlZA==`
         let telegramchat = `https://t.me/d_znaniy`
         let dzen = `https://dzen.ru/domznaniy`
-        async function botMessageLink(){ 
-          await bot.sendMessage(chatId, messageFirst);
-          await bot.sendMessage(chatId, `А пока можете подписаться на наши социальные сети`);
-          await bot.sendMessage(chatId, `Вконтакте: ${vk}`);
-          await bot.sendMessage(chatId, `Insragram: ${instagram}`);
-          await bot.sendMessage(chatId, `Наш телеграм канал: ${telegramchat}`);
-          await bot.sendMessage(chatId, `Наш яндекс дзен: ${dzen}`);
-        }
-        botMessageLink();
+        bot.sendMessage(chatId, `Вконтакте: ${vk}`);
+        bot.sendMessage(chatId, `Insragram: ${instagram}`);
+        bot.sendMessage(chatId, `Наш телеграм канал: ${telegramchat}`);
+        bot.sendMessage(chatId, `Наш яндекс дзен: ${dzen}`);
       }
     });
   });
@@ -54,7 +50,7 @@ function sendReminder(bot) {
   const schedule = require('node-schedule');
 
 
-    const targetDate = new Date(2023, 4, 27, 18, 00, 0);
+    const targetDate = new Date(2023, 4, 27, 18, 17, 0);
         const job = schedule.scheduleJob(targetDate, function() {
         sendReminder(bot);
         });
