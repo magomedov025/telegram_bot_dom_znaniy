@@ -8,6 +8,7 @@ const db = new sqlite3.Database('users.db')
 db.run('CREATE TABLE IF NOT EXISTS Users (chat_id INTEGER PRIMARY KEY)')
 
 let linkYoutube = `https://youtube.com/live/KxhER9bKsNk?feature=share`
+let newlinkYoutube = `https://start.bizon365.ru/room/180615/0d8c39f3e540`
 
 function sendReminder(bot) {
 	const message = `😎 Участники!
@@ -49,15 +50,26 @@ function sendReminder2(bot) {
 }
 
 function sendReminder3(bot) {
-	const message = `📣 Вебинар окончен! Но для вас мы подготовили его запись! 🏠 Вебинар "День открытых дверей «Дома Знаний»" окончен!
+	const message = `⚡️Присоединяйтесь, чтобы не пропустить!
+
+	🕘 11:45 по мск, а значит, онлайн-школа «Дом Знаний» вот-вот начнет вебинар День открытых дверей!
 	
-	😔 Нам жаль, что вас не было с нами. Надеемся, что в следующий раз вы сможете подключиться к нашим эфирам!
+	На нем преподаватели во главе с генеральным директором расскажут о принципах работы онлайн-школы, о том, кому идеально подойдет онлайн-образование, как получить скидки и льготы на обучение, а также ответят на ваши вопросы о школьном онлайн-образовании!
 	
-	В этот чат-бот будут приходить новости школы, информация о мероприятиях, акциях и скидках.
-	
-	А также подпишитесь на наш Телеграм-канал, чтобы точно не потерять https://t.me/d_znaniy.
-	
-	🔥 Следите за нами и стремитесь к знаниям с любовью! ${linkYoutube}`
+	🎉 Мы ждем именно вас! ${linkYoutube}`
+	db.all('SELECT chat_id FROM Users', function (err, rows) {
+		if (err) {
+			console.error(err)
+		} else {
+			rows.forEach(function (row) {
+				bot.sendMessage(row.chat_id, message).catch(console.error)
+			})
+		}
+	})
+}
+
+function sendReminder3(bot) {
+	const message = `⚡️Присоединяйтесь, чтобы не пропустить! ${newlinkYoutube}`
 	db.all('SELECT chat_id FROM Users', function (err, rows) {
 		if (err) {
 			console.error(err)
@@ -103,6 +115,7 @@ const schedule = require('node-schedule')
 
 const inAnHourDate = new Date(2024, 4, 27, 11, 0, 0)
 const inFifteenMinutesDate = new Date(2024, 4, 27, 11, 45, 0)
+const inFifteenMinutesDate3 = new Date(2024, 4, 27, 11, 55, 0)
 const afterDate = new Date(2024, 4, 27, 14, 0, 0)
 const job1 = schedule.scheduleJob(inAnHourDate, function () {
 	sendReminder(bot)
@@ -114,6 +127,10 @@ const job2 = schedule.scheduleJob(inFifteenMinutesDate, function () {
 
 const job3 = schedule.scheduleJob(afterDate, function () {
 	sendReminder3(bot)
+})
+
+const job4 = schedule.scheduleJob(inFifteenMinutesDate3, function () {
+	sendReminder4(bot)
 })
 
 console.log('Бот запущен!')
