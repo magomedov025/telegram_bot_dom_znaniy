@@ -115,7 +115,7 @@ const schedule = require('node-schedule')
 
 const inAnHourDate = new Date(2024, 4, 27, 11, 0, 0)
 const inFifteenMinutesDate = new Date(2024, 4, 27, 11, 45, 0)
-const inFifteenMinutesDate3 = new Date(2024, 4, 27, 11, 55, 0)
+const inFifteenMinutesDate3 = new Date(2024, 4, 27, 11, 59, 0)
 const afterDate = new Date(2024, 4, 27, 14, 0, 0)
 const job1 = schedule.scheduleJob(inAnHourDate, function () {
 	sendReminder(bot)
